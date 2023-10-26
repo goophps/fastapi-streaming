@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流式响应demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+</head>
+<body>
+<div class="chat">
+  <div class="chat-title">
+    <p>产品咨询处</p>
+  </div>
+
+  <div class="messages" id="targetElement">
+    <div class="message ai-message">
+      <pre>你好，很高兴为你服务！</pre>
+    </div>
+
+
+  </div>
+
+  <div class="message-box">
+      <textarea placeholder="请在这里输入消息" id="input_question"></textarea>
+      <button onclick="goChat()">发送</button>
+  </div>
+</div>
+
+    <script>
+
+        // 对话
+        function goChat(){
+            let content_obj = document.getElementById('input_question')
+            let content = content_obj.value
+            if(!content){
+                return false
+            }
+            content_obj.value = ''
+            content_obj.focus()
+            insertMessage(true,content,'my-message')
+            readChatbotReply('/chat',{'temperature':0.5,'content':content},insertMessage)
+
+        }
+
+
+        // 插入一条聊天内容
+        function insertMessage(first,content,rule='ai-message') {
+            // 获取目标元素
+            let targetElement = document.getElementById("targetElement");
+            // 第一次
+            if(first){
+                // 创建一个div
+                let tempContainer = document.createElement("div");
+                tempContainer.className = `message ${rule}`
+                tempContainer.innerHTML = "<pre>"+content+"</pre>";
+                // 插入内容到目标元素
+                targetElement.appendChild(tempContainer);
+            }
+            else {
+                let divElements = targetElement.querySelectorAll("div");
+                let lastDiv = divElements[divElements.length - 1];
+                if (lastDiv) {
+                    // 获取div元素内的p元素
+                    let pElement = lastDiv.querySelector("pre");
+
+                    if (pElement) {
+                        // 输出p元素的文本内容
+                        pElement.textContent += content
+                    }
+                }
+            }
+
+
+        }
+
+    </script>
+    <script src="streamer.js"></script>
+</body>
+</html>
