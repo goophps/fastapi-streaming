@@ -29,7 +29,6 @@ async def generate_stream_response(_callback, llm: ChatOpenAI, messages: list[Ba
     """流式响应"""
     task = asyncio.create_task(llm.apredict_messages(messages))
     async for token in _callback.aiter():
-        print(token)
         yield token
 
     await task
