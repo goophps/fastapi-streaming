@@ -22,3 +22,8 @@ python main.py
 
 ### 前端
 直接双击这个文件即可运行：frontend/index.html
+
+### 后记
+代码全部摘自成熟商业项目，欢迎大家光临：chatus.co
+<br>
+All codes are extracted from mature commercial projects: chatus.co, everyone is welcome to visit
