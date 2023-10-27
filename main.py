@@ -14,7 +14,7 @@ import request_model
 app = FastAPI()
 
 # openai
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = 'your api key'
 
 
 @app.post("/chat")
